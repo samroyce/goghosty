@@ -1,0 +1,38 @@
+<div class="widget">
+  <h2>🔐 Check Your Data Exposure</h2>
+  <input id="emailInput" placeholder="Email">
+  <input id="phoneInput" placeholder="Phone">
+  <button onclick="check()">Scan Now</button>
+  <div id="result"></div>
+
+<script>
+async function check(){
+  const email = document.getElementById("emailInput").value;
+  const phone = document.getElementById("phoneInput").value;
+
+  const res = await fetch("https://YOUR-VERCEL/api/check-breach", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email,phone})
+  });
+
+  const data = await res.json();
+
+  document.getElementById("result").innerHTML = `
+    <p>⚠️ ${data.breachCount} breaches</p>
+    <p>🌐 ${data.estimatedExposureSites}+ exposures</p>
+    <button onclick="buy('${email}','${phone}')">Remove My Data</button>
+  `;
+}
+
+async function buy(email,phone){
+  const res = await fetch("https://YOUR-VERCEL/api/create-checkout-session",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email,phone})
+  });
+  const data = await res.json();
+  window.location.href=data.url;
+}
+</script>
+</div>

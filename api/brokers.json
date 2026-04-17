@@ -1,0 +1,5 @@
+[
+  { "name": "Spokeo", "optout": "https://www.spokeo.com/optout" },
+  { "name": "Whitepages", "optout": "https://www.whitepages.com/suppression_requests" },
+  { "name": "BeenVerified", "optout": "https://www.beenverified.com/app/optout/search" }
+]
